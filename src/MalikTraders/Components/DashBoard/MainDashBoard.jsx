@@ -14,8 +14,16 @@ class MainDashBoard extends Component{
         return(
             <>
                 <div className='col-md-3'>
-                    <DashBoardNavigator currentMenu={this.state.menu} menuSwitchingHandler={this.menuSwitchHandler}/>
+                    <DashBoardNavigator currentMenu={this.state.menuSwitcher} menuSwitchingHandler={this.menuSwitchHandler}/>
                 </div>
                 <div className='col-md-9'> 
                     {
-                        this.state.menuSwitcher === 1? <TodayRecovery/>: this.state.menuSwitcher === 2? <Mon
+                        this.state.menuSwitcher === 1? <TodayRecovery/>: this.state.menuSwitcher === 2? <MonthlyRemainRecovery/>:''
+                    }                    
+                </div>
+            </>
+        );
+    }
+}
+
+export default  MainDashBoard;

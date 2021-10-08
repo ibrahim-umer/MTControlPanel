@@ -82,4 +82,9 @@ class AccountDetails extends Component {
                         </div>
                     </div>
                 </div>
-            </Ad
+            </AdminLayout>
+        );
+    }
+}
+export default AccountDetails;
+

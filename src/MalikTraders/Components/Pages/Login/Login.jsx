@@ -2,9 +2,10 @@ import React from 'react';
 import { Component } from 'react';
 import Cookie from 'universal-cookie/es6';
 import Axios from "axios"
-import { Link } from 'react-router-dom';
 import { Redirect } from "react-router";
 import { Spinner } from 'react-bootstrap';
+
+
 class Login extends Component {
     constructor(props) {
         super(props);

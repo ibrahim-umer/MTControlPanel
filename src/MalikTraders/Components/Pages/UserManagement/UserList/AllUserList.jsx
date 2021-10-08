@@ -1,6 +1,8 @@
 import { Component } from "react";
 import Axios from "axios"
 import {Link} from 'react-router-dom'
+
+import { Spinner } from 'react-bootstrap';
 class UserList extends Component{
     constructor(props) {
         super(props);
@@ -112,7 +114,7 @@ class UserList extends Component{
                                      + new Date(user.lastLogin).toLocaleTimeString() }</td>
                                     <td>{new Date(user.registration_Date).toDateString()}</td>
                                 </tr>
-                            }): <h5>Please Wait! we are Loading Your Data from Server</h5>
+                            }): <Spinner animation="grow"  /> 
                         }
                     </tbody>
                 </table>

@@ -30,7 +30,7 @@ class MonthlyRemainRecovery extends Component {
         return <>
                   <label for="start">Start month:</label>
                   <input type="month" id="start" name="start"
-                  min="2019-03"  onChange={this.dataLoader}></input>
+                  min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
                   <table class="table table-bordered">
                     <thead>
                       <tr>

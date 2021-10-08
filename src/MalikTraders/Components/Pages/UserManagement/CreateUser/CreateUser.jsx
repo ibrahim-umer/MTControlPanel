@@ -4,13 +4,14 @@ import { Redirect } from "react-router";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
 import TbInputControl from "../UI/TbInputControl";
 
+
 class CreateNewUser extends Component{
     constructor(props) {
         super(props);
         this.state = {
             "id": 0,
             "email": "",
-            "role": "",
+            "role": "user",
             "userName": "",
             "password": "",
             "userDetails": {

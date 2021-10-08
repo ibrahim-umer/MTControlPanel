@@ -3,6 +3,8 @@ import AdminLayout from "../../../AdminLayout/AdminLayout";
 import axios from 'axios'
 import Cookie from 'universal-cookie'
 import { Link } from "react-router-dom";
+import AddNewPayment from "../../UserManagement/AddNewPayment/AddNewPayment";
+import { Spinner } from "react-bootstrap";
 
 class PaymentHistory extends Component{
    
@@ -69,10 +71,11 @@ class PaymentHistory extends Component{
                                             <td>{payment.PostedByUser}</td>
                                             <td><Link to={'/account/payment/modification/' + payment.paymentId}>modify</Link></td>
                                     </tr>
-                             }): 'we are loading your data'
+                             }): <Spinner animation="grow" />
                          }
                     </tbody>
                 </table>
+                
             </div>
             </AdminLayout>
         )
