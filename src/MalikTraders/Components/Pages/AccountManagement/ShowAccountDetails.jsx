@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import AdminLayout from "../../AdminLayout/AdminLayout";
 import PaymentDetails from "./DisplayPaymentDetails/PaymentDetails";
 import AccountCard from "./UI/AccountCard";
-
+import Axios from "axios"
 class AccountDetails extends Component {
     constructor(props) {
         super(props);
@@ -16,12 +16,29 @@ class AccountDetails extends Component {
             gotoHistoryPaymentRedirect: null
         }
     }
+
     gotoHistoryPaymentRedirectHandler=(AccId)=>{
         this.setState({gotoHistoryPaymentRedirect: {
             AccId: AccId,
             redir: true 
         }})
     }
+
+    AccountDisableandEnableHandler =(AccId)=>{
+        
+        var ClosingDescription = window.prompt("what is the reason of Disabling Account");
+        if(ClosingDescription !== null)
+        if(window.confirm('Attention Please! ' + 'Opration Defination: Are you sure you want to disable this account'))
+        {
+            Axios.put(window.$domain + 'api/Accounts/DisableAndEnableHandler/' + AccId + '?ClosingDescription=' + ClosingDescription)
+                .then(resp=> {
+                    console.log(resp);
+                })
+                .catch(resp=> console.log(resp));
+            
+        }
+    }
+
     componentDidMount(){
         if(this.state.Accounts === null){
             axios.get(window.$domain + 'api/Accounts/GetAccountbyUserId/' + this.props.match.params.id)
@@ -67,7 +84,10 @@ class AccountDetails extends Component {
                                                                                         desc={Scheme.details} 
                                                                                         AccId={Account.id} 
                                                                                         paymentDisplayHandler ={this.paymentDisplayHandler}
-                                                                                        gotoPaymentHistory= {this.gotoHistoryPaymentRedirectHandler}/>: ''
+                                                                                        gotoPaymentHistory= {this.gotoHistoryPaymentRedirectHandler}
+                                                                                        isAccClosed= {Account.isAccClosed}
+                                                                                        disableAcc={this.AccountDisableandEnableHandler}
+                                                                                        closingReason={Account.closingDescription}/>: ''
                                     ) 
                                 ): ''
                             }

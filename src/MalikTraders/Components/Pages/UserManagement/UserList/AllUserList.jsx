@@ -16,13 +16,12 @@ class UserList extends Component{
         if(event === undefined)
         Axios.get(window.$domain + 'api/Users').then(
             resp=>{
+                this.setState({userList: []});
                 this.setState({userList: resp.data});
-                console.log(resp.data)
             }
         ).catch(
             err=>{
                 alert('Page:manageuser =>'+err)
-                console.log('Page:manageuser =>'+err)
             }
         )
         else if(event.target.name === 'SearchByCnic' && event.target.value !== '' ){
@@ -33,8 +32,7 @@ class UserList extends Component{
                 }
             ).catch(
                 err=>{
-                    alert('Page:manageuser =>'+err)
-                    console.log('Page:manageuser =>'+err)
+                    alert('Page: Manage User =>'+err)
                 }
             )
         }
@@ -46,10 +44,22 @@ class UserList extends Component{
                 }
             ).catch(
                 err=>{
-                    alert('Page:manageuser =>'+err)
-                    console.log('Page:manageuser =>'+err)
+                    alert('Page: Manage User =>'+err)
                 }
             )
+        }
+    }
+    UserEnableandDisableHandler = (userId)=>
+    {
+        if(window.confirm('Attention Please! ' + 'Opration Defination: If Your User is Enabled turn Disabled if Disabled turn Enabled.'))
+        {
+            Axios.post(window.$domain + 'api/Users/UserAccountEnableandDisableHandler/' + userId)
+                .then(resp=> {
+                    console.log(resp);
+                    this.LoadUserList();
+                })
+                .catch(resp=> console.log(resp));
+            
         }
     }
 
@@ -88,6 +98,7 @@ class UserList extends Component{
                             <th>CNIC</th>
                             <th >Last Login (DayName/Month/Day/Year) </th>
                             <th>Registration Date (DayName/Month/Day/Year)</th>
+                            <th>User Enabled</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,6 +124,9 @@ class UserList extends Component{
                                     <td>{new Date(user.lastLogin).toDateString() + ' ' 
                                      + new Date(user.lastLogin).toLocaleTimeString() }</td>
                                     <td>{new Date(user.registration_Date).toDateString()}</td>
+                                    <td onClick={()=> this.UserEnableandDisableHandler(user.id)}>
+                                        {user.isUserDisabled? <i  class="fa fa-lock" aria-hidden="true"></i> :<i class="fa fa-check" aria-hidden="true"></i>}
+                                    </td>
                                 </tr>
                             }): <Spinner animation="grow"  /> 
                         }
