@@ -18,11 +18,11 @@ class NavBar extends Component{
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <Link className="dropdown-item"  to="/manageuser" >Show User List</Link>
                                     <Link className="dropdown-item" to='/CreateUser' >Create New User</Link>
-                                    <Link className="dropdown-item" >Update Existing User</Link>
+                                    <Link className="dropdown-item disabled" >Update Existing User</Link>
                                 </div>
                             </li>
                             <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/Products">Products</Link></li>
-                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/mthome">More Controls</Link></li>
+                            
                         </ul>
                     </div>
                 </div>
