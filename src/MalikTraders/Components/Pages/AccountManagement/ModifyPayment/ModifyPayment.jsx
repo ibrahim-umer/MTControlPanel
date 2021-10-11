@@ -2,7 +2,8 @@ import axios from "axios";
 import { Component } from "react";
 import { Redirect } from "react-router";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
-import TbInputControl from '../../UserManagement/UI/TbInputControl'
+import TbInputControl from '../../UserManagement/UI/TbInputControl';
+import Cookie from 'universal-cookie';
 
 
 class ModifyPayment extends Component{
@@ -10,7 +11,8 @@ class ModifyPayment extends Component{
         amount: 0,
         EntryDateTime: null,
         redirect: false,
-        accDetailsId: 0
+        accDetailsId: 0,
+        isLogin: true
     }
     ReadyUser = event =>{
         if(event.target.value > 0)
@@ -36,9 +38,17 @@ class ModifyPayment extends Component{
     EntryDateTimeHandler = (event)=>{
         this.setState({EntryDateTime: event.target.value});
     }
+    componentDidMount(){
+        var cookies = new Cookie();
+        if(cookies.get('logedInUser') === undefined)
+        {
+            this.setState({isLogin: false});
+        }
+    }
     render(){
         return(
                 <AdminLayout>
+                    {this.state.isLogin?'':<Redirect to='/login'/>}
                     <div className="jumbotron mt-3">
                     {
                         this.state.redirect ? <Redirect to={'/Accounts/'+this.state.accDetailsId+'/Payment'} />: ''

@@ -4,6 +4,7 @@ import AdminLayout from '../../../AdminLayout/AdminLayout'
 import TbInputControl from '../UI/TbInputControl'
 import axios from "axios";
 import { Redirect } from "react-router";
+import Cookie from 'universal-cookie';
 
 class AttachWithNewScheme extends Component{
     constructor(props) {
@@ -19,7 +20,8 @@ class AttachWithNewScheme extends Component{
                 "accPaymentDetails": null
             },
             MTServices: null,
-            redirect: false
+            redirect: false,
+            isLogin: true
         };
         this.amountInputRef = React.createRef();
         this.ReadyUser = this.ReadyUser.bind(this);
@@ -130,11 +132,17 @@ class AttachWithNewScheme extends Component{
                 this.setState({MTServices: resp.data});
             });
         }
+        var cookies = new Cookie();
+        if(cookies.get('logedInUser') === undefined)
+        {
+            this.setState({isLogin: false});
+        }
     }
 
     render(){
         return(
             <AdminLayout>
+                {this.state.isLogin?'':<Redirect to='/login'/>}
                 {this.state.redirect? <Redirect to='/manageuser'/>: ''}
                 <div className='jumbotron'>
                     <div className='container-fluid'>

@@ -1,9 +1,9 @@
 import { Component } from "react";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
-import axios from 'axios'
-import Cookie from 'universal-cookie'
+import axios from 'axios';
+import Cookie from 'universal-cookie';
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-import AddNewPayment from "../../UserManagement/AddNewPayment/AddNewPayment";
 import { Spinner } from "react-bootstrap";
 
 class PaymentHistory extends Component{
@@ -11,7 +11,8 @@ class PaymentHistory extends Component{
     constructor(props) {
         super(props);
         this.state =  {
-            historyList: []
+            historyList: [],
+            isLogin: true
         };
     }
     componentDidMount(){
@@ -45,11 +46,17 @@ class PaymentHistory extends Component{
                 }
             )
         }
+        var cookies = new Cookie();
+        if(cookies.get('logedInUser') === undefined)
+        {
+            this.setState({isLogin: false});
+        }
     }
 
      render(){
         return(
             <AdminLayout>
+                {this.state.isLogin?'':<Redirect to='/login'/>}
                 <div className="jumbotron container-fluid overflow-auto">
                     <h2>Payment History</h2>
                 <table className="table shadow table-bordered">

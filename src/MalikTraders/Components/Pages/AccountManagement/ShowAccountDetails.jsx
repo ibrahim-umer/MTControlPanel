@@ -5,6 +5,8 @@ import AdminLayout from "../../AdminLayout/AdminLayout";
 import PaymentDetails from "./DisplayPaymentDetails/PaymentDetails";
 import AccountCard from "./UI/AccountCard";
 import Axios from "axios"
+import Cookie from 'universal-cookie/es6';
+
 class AccountDetails extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,8 @@ class AccountDetails extends Component {
             Schemes: null,
             DisplayAcc: null,
             AccId: 0,
-            gotoHistoryPaymentRedirect: null
+            gotoHistoryPaymentRedirect: null,
+            isLogin: true
         }
     }
 
@@ -55,6 +58,11 @@ class AccountDetails extends Component {
             )
             
         }
+        var cookies = new Cookie();
+        if(cookies.get('logedInUser') === undefined)
+        {
+            this.setState({isLogin: false});
+        }
     }
 
     paymentDisplayHandler = (Accid)=>{
@@ -71,6 +79,7 @@ class AccountDetails extends Component {
         console.log(this.props.match.params.id)
         return(
             <AdminLayout>
+                {this.state.isLogin?'':<Redirect to='/login'/>}
                 {this.state.gotoHistoryPaymentRedirect=== null? '':<Redirect to={'/Accounts/' + this.state.gotoHistoryPaymentRedirect.AccId + '/Payment'} /> }
                 <div className='jumbotron mt-3'>
                     <div className='row'>

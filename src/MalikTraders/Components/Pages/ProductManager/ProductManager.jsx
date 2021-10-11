@@ -1,11 +1,14 @@
 import { Component } from "react";
 import AdminLayout from "../../AdminLayout/AdminLayout";
-import Axios from "axios"
-import {Link} from 'react-router-dom'
+import Axios from "axios";
+import {Link} from 'react-router-dom';
+import Cookie from 'universal-cookie';
+import { Redirect } from "react-router";
 
 class ProductManager extends Component{
     state = {
-        mtServices: null
+        mtServices: null,
+        isLogin: true
     }
     
 
@@ -21,11 +24,17 @@ class ProductManager extends Component{
                 }
             )
         }
+        var cookies = new Cookie();
+        if(cookies.get('logedInUser') === undefined)
+        {
+            this.setState({isLogin: false});
+        }
     }
 
     render(){
         return(
             <AdminLayout>
+                {this.state.isLogin?'':<Redirect to='/login'/>}
                 <div className='jumbotron'>
                     <h3>Manage Products/Schemes</h3>
                     <div className='row m-1 overflow-auto'>
