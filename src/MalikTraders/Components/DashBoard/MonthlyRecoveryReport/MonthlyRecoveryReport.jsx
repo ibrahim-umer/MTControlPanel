@@ -28,10 +28,10 @@ class MonthlyRemainRecovery extends Component {
     }
     render(){
         return <>
-                  <label for="start">Start month:</label>
-                  <input type="month" id="start" name="start"
+                  <input className='shadow form-control ml-1' type="month" id="start" name="start"
                   min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
-                  <table class="table table-bordered">
+                  
+                  <table class="table shadow table-bordered">
                     <thead>
                       <tr>
                         <th >Client Name</th>

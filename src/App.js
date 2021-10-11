@@ -17,6 +17,7 @@ import AddNewProduct from './MalikTraders/Components/Pages/ProductManager/AddNew
 import ModifyPayment from './MalikTraders/Components/Pages/AccountManagement/ModifyPayment/ModifyPayment';
 
 window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
+//window.$domain = 'https://localhost:44302/' //global variable
 
 //Start 
 function App() {

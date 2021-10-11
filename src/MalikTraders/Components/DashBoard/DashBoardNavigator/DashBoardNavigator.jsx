@@ -13,7 +13,7 @@ const DashBoardNavigator = (props)=>{
                 <Link onClick = {()=>props.menuSwitchingHandler(2)}  className={props.currentMenu === 2 ? active : inActive }>Show Remain Recovery</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link disabled" >Show Report by Month</Link>
+                <Link onClick = {()=>props.menuSwitchingHandler(3)} className={props.currentMenu === 3 ? active : inActive }>Show Report by Month</Link>
             </li>
         </ul>
     );

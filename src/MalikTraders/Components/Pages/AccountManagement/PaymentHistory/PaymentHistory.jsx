@@ -52,7 +52,7 @@ class PaymentHistory extends Component{
             <AdminLayout>
                 <div className="jumbotron container-fluid overflow-auto">
                     <h2>Payment History</h2>
-                <table className="table table-bordered">
+                <table className="table shadow table-bordered">
                     <thead>
                         <tr >
                             <th>Date -- Time</th>

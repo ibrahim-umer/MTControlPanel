@@ -15,7 +15,7 @@ const AccountCard= props =>{
                                     progress: undefined,
                                     });
     return(
-        <div class="card m-2" style={{width: '12rem'}}>
+        <div class="card shadow m-2" style={{width: '12rem'}}>
             {showToast? <ToastContainer/>: ''}
             <div class="card-body">
                 <h5 class="card-title">{props.schemeName}</h5>

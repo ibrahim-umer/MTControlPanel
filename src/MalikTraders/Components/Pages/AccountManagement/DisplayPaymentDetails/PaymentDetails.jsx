@@ -15,7 +15,7 @@ const PaymentDetails = props=>{
         <div className="jumbotron container-fluid overflow-auto">
             {isLogin?'':<Redirect to='/login'/>}
             
-            <table className="table table-bordered">
+            <table className="table shadow table-bordered">
                 <thead>
                     <tr >
                         <th>Date</th>

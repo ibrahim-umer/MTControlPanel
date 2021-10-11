@@ -28,8 +28,8 @@ class ProductManager extends Component{
             <AdminLayout>
                 <div className='jumbotron'>
                     <h3>Manage Products/Schemes</h3>
-                    <div className='row overflow-auto'>
-                        <table className="table table-bordered ">
+                    <div className='row m-1 overflow-auto'>
+                        <table className="table shadow table-bordered ">
                             <thead>
                                 <tr >
                                     <th>Id</th>
@@ -53,7 +53,7 @@ class ProductManager extends Component{
                             </tbody>
                         </table>
                     </div>
-                    <Link className='btn btn-success' to='/AddProduct' >Add More Product</Link>
+                    <Link className='btn btn-success shadow' to='/AddProduct' >Add More Product</Link>
                 </div>
             </AdminLayout>
 

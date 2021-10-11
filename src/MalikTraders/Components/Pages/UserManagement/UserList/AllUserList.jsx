@@ -74,16 +74,16 @@ class UserList extends Component{
                <div className='row ml-2'>
                     <div class="form-group ml-1">
                         <label>Search by CNIC Number:</label>
-                        <input  type='text' class="form-control" onChange={this.LoadUserList} name='SearchByCnic'/>
+                        <input  type='text' class="form-control shadow" onChange={this.LoadUserList} name='SearchByCnic'/>
                     </div>
                     <div class="form-group ml-1">
                         <label>Search by Name:</label>
-                        <input  type='text' class="form-control" onChange={this.LoadUserList} name='SearchByName'/>
+                        <input  type='text' class="form-control shadow" onChange={this.LoadUserList} name='SearchByName'/>
                     </div>
                </div>
-                <h3>User List</h3>
-                <div className='row overflow-auto'>
-                <table className="table table-bordered ">
+                <h3>Users</h3>
+                <div className='row shadow overflow-auto m-1'>
+                <table className="table  table-bordered ">
                     <thead>
                         <tr >
                             <th>System Id</th>

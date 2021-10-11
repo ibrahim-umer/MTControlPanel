@@ -2,6 +2,7 @@ import { Component } from "react"
 import DashBoardNavigator from "./DashBoardNavigator/DashBoardNavigator";
 import TodayRecovery from "./TodayRecovery/TodayRecovery";
 import MonthlyRemainRecovery from "./MonthlyRecoveryReport/MonthlyRecoveryReport";
+import MonthlyReport from "./MonthlyReport/MonthlyReport";
 
 class MainDashBoard extends Component{
     state = {
@@ -18,7 +19,10 @@ class MainDashBoard extends Component{
                 </div>
                 <div className='col-md-9'> 
                     {
-                        this.state.menuSwitcher === 1? <TodayRecovery/>: this.state.menuSwitcher === 2? <MonthlyRemainRecovery/>:''
+                        this.state.menuSwitcher === 1? <TodayRecovery/>
+                        :this.state.menuSwitcher === 2? <MonthlyRemainRecovery/>
+                        :this.state.menuSwitcher === 3? <MonthlyReport/>
+                        : ''
                     }                    
                 </div>
             </>
