@@ -6,6 +6,7 @@ import PaymentDetails from "./DisplayPaymentDetails/PaymentDetails";
 import AccountCard from "./UI/AccountCard";
 import Axios from "axios"
 import Cookie from 'universal-cookie/es6';
+import { Spinner } from 'react-bootstrap';
 
 class AccountDetails extends Component {
     constructor(props) {
@@ -26,8 +27,21 @@ class AccountDetails extends Component {
             redir: true 
         }})
     }
-
-    AccountDisableandEnableHandler =(AccId)=>{
+    AccountEnableHandler =(AccId)=>{
+        
+        var ClosingDescription = window.prompt("what is the reason of Enabling Account");
+        if(ClosingDescription !== null)
+        if(window.confirm('Attention Please! ' + 'Opration Defination: Are you sure you want to --Enable-- this account'))
+        {
+            Axios.put(window.$domain + 'api/Accounts/DisableAndEnableHandler/' + AccId + '?ClosingDescription=' + ClosingDescription)
+                .then(resp=> {
+                    console.log(resp);
+                })
+                .catch(resp=> console.log(resp));
+            this.setState({Accounts: null});
+        }
+    }
+    AccountDisableHandler =(AccId)=>{
         
         var ClosingDescription = window.prompt("what is the reason of Disabling Account");
         if(ClosingDescription !== null)
@@ -38,7 +52,7 @@ class AccountDetails extends Component {
                     console.log(resp);
                 })
                 .catch(resp=> console.log(resp));
-            
+                this.setState({Accounts: null});
         }
     }
 
@@ -62,6 +76,22 @@ class AccountDetails extends Component {
         if(cookies.get('logedInUser') === undefined)
         {
             this.setState({isLogin: false});
+        }
+    }
+    componentDidUpdate(){
+        if(this.state.Accounts === null){
+            axios.get(window.$domain + 'api/Accounts/GetAccountbyUserId/' + this.props.match.params.id)
+            .then(
+                resp=>{
+                    this.setState({Accounts: resp.data});
+                }
+            )
+            axios.get(window.$domain + 'api/MTServices')
+            .then(
+                resp=>{
+                    this.setState({Schemes: resp.data});
+                }
+            )
         }
     }
 
@@ -95,10 +125,11 @@ class AccountDetails extends Component {
                                                                                         paymentDisplayHandler ={this.paymentDisplayHandler}
                                                                                         gotoPaymentHistory= {this.gotoHistoryPaymentRedirectHandler}
                                                                                         isAccClosed= {Account.isAccClosed}
-                                                                                        disableAcc={this.AccountDisableandEnableHandler}
-                                                                                        closingReason={Account.closingDescription}/>: ''
+                                                                                        disableAcc={this.AccountDisableHandler}
+                                                                                        closingReason={Account.closingDescription}
+                                                                                        enableAcc={this.AccountEnableHandler}/>: ''
                                     ) 
-                                ): ''
+                                ):  <div className='m-5'><Spinner animation="grow" /></div>
                             }
                         </div>
                         <div className='col-md-9'>

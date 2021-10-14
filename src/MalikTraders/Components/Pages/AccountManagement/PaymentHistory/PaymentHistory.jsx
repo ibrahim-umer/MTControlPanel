@@ -1,10 +1,11 @@
-import { Component } from "react";
+import React,{ Component } from "react";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
 import axios from 'axios';
 import Cookie from 'universal-cookie';
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import ReactToPrint from 'react-to-print';
 
 class PaymentHistory extends Component{
    
@@ -12,7 +13,8 @@ class PaymentHistory extends Component{
         super(props);
         this.state =  {
             historyList: [],
-            isLogin: true
+            isLogin: true,
+            goneToPrint: false
         };
     }
     componentDidMount(){
@@ -38,7 +40,7 @@ class PaymentHistory extends Component{
                                     }
                                 )
                             }
-                    )
+                    );
                 }
             ).catch(
                 err=> {
@@ -52,42 +54,103 @@ class PaymentHistory extends Component{
             this.setState({isLogin: false});
         }
     }
-
+    printModeHandler = ()=>{
+        this.setState({goneToPrint: !this.state.goneToPrint});
+    }
      render(){
         return(
             <AdminLayout>
                 {this.state.isLogin?'':<Redirect to='/login'/>}
-                <div className="jumbotron container-fluid overflow-auto">
+                {!this.state.goneToPrint?
+                <div className="jumbotron container-fluid overflow-auto" >
                     <h2>Payment History</h2>
-                <table className="table shadow table-bordered">
-                    <thead>
-                        <tr >
-                            <th>Date -- Time</th>
-                            <th>Payment</th>
-                            <th>Payment Received By</th>
-                            <th>Amount Modification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                         {
-                             this.state.historyList !== null ?
-                             this.state.historyList.map(payment=>{
-                                return <tr>
-                                            <td>{new Date(payment.payDate).toDateString() + ' -- ' + new Date(payment.payDate).toLocaleTimeString() }</td>
-                                            <td>{payment.payedAmount}</td>
-                                            <td>{payment.PostedByUser}</td>
-                                            <td><Link to={'/account/payment/modification/' + payment.paymentId}>modify</Link></td>
-                                    </tr>
-                             }): <Spinner animation="grow" />
-                         }
-                    </tbody>
-                </table>
-                
+                    <label for="StartMonth">Start Month:</label>
+                    <input className='shadow form-control  ml-1' type="month" id="StartMonth" name="start"
+                    min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
+                    <label for="End-Month">End Month:</label>
+                    <input className='shadow form-control ml-1' type="month" id="start" name="End-Month"
+                    min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
+                    {
+                        this.state.historyList !== null ?
+                        <DisplayHistory  
+                        paymentHistoryList= {this.state.historyList} 
+                        AccID={this.props.match.params.id}
+                        isPrintable= {false}
+                         />
+                        : <Spinner animation="grow" />
+                    }
+                    <button onClick={()=>this.setState({goneToPrint: true})} className='btn btn-primary'>Print</button>
             </div>
+            :<DisplayHistory backToAppMode={this.printModeHandler}  isPrintable= {true}  paymentHistoryList= {this.state.historyList} AccID={this.props.match.params.id} />}
             </AdminLayout>
         )
     }
     
 }
+
+export class DisplayHistory extends Component {
+    state = {
+        redirect: false,
+        sum: 0
+    }
+    componentDidMount(){
+        this.updateComponent();
+    }
+    componentDidUpdate(){
+        this.updateComponent();
+        
+    }
+    updateComponent=()=>{
+        if(this.props.paymentHistoryList.length > null && this.state.sum === 0)
+        {
+            var sum=0;
+            this.props.paymentHistoryList.map(payment=>{
+                sum=sum+payment.payedAmount;
+            })
+            this.setState({sum: sum});
+        }
+    }
+    printPage(){
+        window.print();
+        this.props.backToAppMode();
+    }
+    render() {
+      return (
+        <div className='m-2'>
+        {
+           this.props.isPrintable? <>
+            <h4>Total Paid Amount: PKR {this.state.sum}</h4>
+            <h5>Scheme ID: {this.props.AccID}</h5>
+            </>:''
+        }
+        <table className='table '>
+         <thead>
+            <tr >
+                <th>Date -- Time</th>
+                <th>Payment</th>
+                <th>Payment Received By</th>
+                {this.props.isPrintable?'':<th>Amount Modification</th>}
+            </tr>
+        </thead>
+          <tbody>
+          {this.props.paymentHistoryList?
+          this.props.paymentHistoryList.map(payment=>{
+                return <tr>
+                            <td>{new Date(payment.payDate).toDateString() + ' -- ' + new Date(payment.payDate).toLocaleTimeString() }</td>
+                            <td>{payment.payedAmount}</td>
+                            <td>{payment.PostedByUser}</td>
+                            {this.props.isPrintable?'':<td><Link to={'/account/payment/modification/' + payment.paymentId}>modify</Link></td>}
+                    </tr>
+                })
+                :''}
+          </tbody>
+        </table>
+        {this.props.isPrintable?
+        <a onClick={()=>this.printPage()} style={{cursor: 'pointer', color: "white", backgroundColor: 'gray'}} >Print Out</a>:''}
+        </div>
+      );
+    }
+  }
+
 
 export default PaymentHistory;
