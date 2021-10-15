@@ -14,7 +14,7 @@ class CreateNewUser extends Component{
             "role": "user",
             "userName": "",
             "password": "",
-            "userDetails": {
+            "userDetail": {
               "id": 0,
               "name": "",
               "cnic": "",
