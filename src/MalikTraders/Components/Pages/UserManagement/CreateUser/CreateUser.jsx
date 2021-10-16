@@ -14,7 +14,7 @@ class CreateNewUser extends Component{
             "role": "user",
             "userName": "",
             "password": "",
-            "userDetail": {
+            "userDetails": {
               "id": 0,
               "name": "",
               "cnic": "",
@@ -234,7 +234,7 @@ class CreateNewUser extends Component{
                     "userName": this.state.userName,
                     "password": this.state.password,
                     "role": this.state.role,
-                    "userDetails": {
+                    "userDetail": {
                         "id": 0,
                         "name": this.state.userDetails.name,
                         "cnic": this.state.userDetails.cnic,

@@ -14,8 +14,14 @@ class PaymentHistory extends Component{
         this.state =  {
             historyList: [],
             isLogin: true,
-            goneToPrint: false
+            goneToPrint: false,
+            searchQuery: {
+                startDate: null,
+                endDate: null
+            },
+            queryExecuted: false
         };
+        this.queryDataLoader = this.queryDataLoader.bind(this);
     }
     componentDidMount(){
         if(this.state.historyList.length === 0)
@@ -57,7 +63,59 @@ class PaymentHistory extends Component{
     printModeHandler = ()=>{
         this.setState({goneToPrint: !this.state.goneToPrint});
     }
-     render(){
+    searchByDateTime = (event)=>{
+        if(event.target.name === 'Start-Date'){
+            this.setState({searchQuery: {
+                startDate: new Date(event.target.value).toLocaleDateString(),
+                endDate: this.state.searchQuery.endDate
+            }});
+        }
+        if(event.target.name === 'End-Date'){
+            this.setState({searchQuery: {
+                startDate: this.state.searchQuery.startDate,
+                endDate: new Date(event.target.value).toLocaleDateString()
+            }});
+        }
+    }
+    queryDataLoader(){
+        
+            if(this.state.searchQuery.startDate !== null 
+                && this.state.searchQuery.endDate !== null)
+            {
+                this.setState({historyList: []});
+                axios.post(window.$domain + 'api/AccDetails/GetAccountDetailsByGivenMonth/' 
+            + this.props.match.params.id 
+            + '?StartDate=' + this.state.searchQuery.startDate 
+            + '&EndDate=' + this.state.searchQuery.endDate)
+                .then(
+                    resp=>{
+                            resp.data.map(
+                                payment => {
+                                    axios.get(window.$domain + 'api/Users/' + payment.postedByUserId).then(
+                                        user=>{
+                                            var arrayHistory = [];
+                                            arrayHistory = this.state.historyList;
+                                            arrayHistory.push(
+                                                {
+                                                    payDate: payment.payingDate, 
+                                                    paymentId: payment.id,
+                                                    payedAmount: payment.payedAmount,
+                                                    PostedByUser: user.data.userName
+                                                });
+                                            this.setState({historyList: arrayHistory});
+                                        }
+                                    )
+                                }
+                        );
+                    }
+                ).catch(
+                    err=> {
+                        console.log(err);
+                    }
+                )
+            }
+    }
+    render(){
         return(
             <AdminLayout>
                 {this.state.isLogin?'':<Redirect to='/login'/>}
@@ -65,11 +123,15 @@ class PaymentHistory extends Component{
                 <div className="jumbotron container-fluid overflow-auto" >
                     <h2>Payment History</h2>
                     <label for="StartMonth">Start Month:</label>
-                    <input className='shadow form-control  ml-1' type="month" id="StartMonth" name="start"
-                    min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
+                    <input className='shadow form-control  ml-1' type="date" id="StartMonth" name="Start-Date"
+                    defaultValue = '2021-10' onChange={this.searchByDateTime}></input>
                     <label for="End-Month">End Month:</label>
-                    <input className='shadow form-control ml-1' type="month" id="start" name="End-Month"
-                    min="2019-03" defaultValue = '2021-10' onChange={this.dataLoader}></input>
+                    <input className='shadow form-control ml-1' type="date" id="start" name="End-Date"
+                      onChange={this.searchByDateTime}></input>
+                    <div className='row'>
+                    <button className='btn btn-light mt-2'  style={{marginLeft: 'auto', marginRight: '5px'}}
+                      onClick={this.queryDataLoader}>Search</button>
+                    </div>
                     {
                         this.state.historyList !== null ?
                         <DisplayHistory  
@@ -98,7 +160,6 @@ export class DisplayHistory extends Component {
     }
     componentDidUpdate(){
         this.updateComponent();
-        
     }
     updateComponent=()=>{
         if(this.props.paymentHistoryList.length > null && this.state.sum === 0)

@@ -34,7 +34,7 @@ class ProductManager extends Component{
     render(){
         return(
             <AdminLayout>
-                {this.state.isLogin?'':<Redirect to='/login'/>}
+                {/* {this.state.isLogin?'':<Redirect to='/login'/>} */}
                 <div className='jumbotron'>
                     <h3>Manage Products/Schemes</h3>
                     <div className='row m-1 overflow-auto'>
