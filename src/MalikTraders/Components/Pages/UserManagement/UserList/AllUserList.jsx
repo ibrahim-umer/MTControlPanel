@@ -7,7 +7,8 @@ class UserList extends Component{
     constructor(props) {
         super(props);
         this.state = {
-          userList: []
+          userList: [],
+          shopAcc: []
         };
     this.LoadUserList = this.LoadUserList.bind(this);
     }
@@ -18,6 +19,17 @@ class UserList extends Component{
             resp=>{
                 this.setState({userList: []});
                 this.setState({userList: resp.data});
+                resp.data.map(
+                    userResp=>{
+                        Axios.get(window.$domain + 'api/ShopAccounts/ShopAccountExistsByUserId/' + userResp.id)
+                        .then(accResp=>{  
+                            var newArray = this.state.shopAcc;
+                            newArray.push({userId: userResp.id,isAcc: accResp.data});
+                            this.setState({shopAcc: newArray});
+                        })
+                        .catch(resp=>resp.data.message); 
+                    }
+                )
             }
         ).catch(
             err=>{
@@ -48,6 +60,7 @@ class UserList extends Component{
                 }
             )
         }
+        console.log(this.state.shopAcc);
     }
     UserEnableandDisableHandler = (userId)=>
     {
@@ -66,8 +79,19 @@ class UserList extends Component{
     componentDidMount(){
         if(this.state.userList.length === 0)
         this.LoadUserList();
+        
     }
-
+    getAccState=userId=>{
+        var is= null;
+       for(let  i= 0;i<this.state.shopAcc.length;i++){
+            if(this.state.shopAcc[i].userId === userId)
+            {
+                is=this.state.shopAcc[i].isAcc;
+                break;
+            }
+       } 
+       return is;
+    }
     render(){
         return(
             <div className="jumbotron container-fluid overflow-auto">
@@ -91,6 +115,7 @@ class UserList extends Component{
                             <th>Name</th>
                             <th>Accounts Details</th>
                             <th>Add to new Scheme</th>
+                            <th>Shop Acc.</th>
                             <th>Gender</th>
                             <th>User Name</th>
                             <th>Email</th>
@@ -105,16 +130,20 @@ class UserList extends Component{
                         {
                             this.state.userList.length > 0 ?
                             this.state.userList.map(user=>{
+                                var isAcc=this.getAccState(user.id);
                                 
                                 return <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.role}</td>
                                     <td>{user.name}</td>
                                     <td>
-                                        <Link to={'/ShowAccountDetails/'+ user.id} >Show</Link>
+                                        {user.role==='admin'?'':<Link to={'/ShowAccountDetails/'+ user.id} >Show</Link>}
                                     </td>
                                     <td>
-                                        <Link to={'/User/'+ user.id + '/AddtoNewScheme'} >Add</Link>
+                                        {user.role==='admin'?'':<Link to={'/User/'+ user.id + '/AddtoNewScheme'} >Add</Link>}
+                                    </td>
+                                    <td>
+                                        {isAcc? <Link to={'/user/'+ user.id+'/shop'} >Go</Link>:'no'}
                                     </td>
                                     <td>{user.gender}</td>
                                     <td>{user.userName}</td>
@@ -125,7 +154,9 @@ class UserList extends Component{
                                      + new Date(user.lastLogin).toLocaleTimeString() }</td>
                                     <td>{new Date(user.registration_Date).toDateString()}</td>
                                     <td onClick={()=> this.UserEnableandDisableHandler(user.id)}>
-                                        {user.isUserDisabled? <i  class="fa fa-lock" aria-hidden="true"></i> :<i class="fa fa-check" aria-hidden="true"></i>}
+                                        {user.isUserDisabled? 
+                                        <i  class="fa fa-lock" aria-hidden="true"></i> :
+                                        <i class="fa fa-check" aria-hidden="true"></i>}
                                     </td>
                                 </tr>
                             }): <Spinner animation="grow"  /> 

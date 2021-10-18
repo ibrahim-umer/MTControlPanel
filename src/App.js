@@ -15,6 +15,7 @@ import AttachWithNewScheme from './MalikTraders/Components/Pages/UserManagement/
 import ProductManager from './MalikTraders/Components/Pages/ProductManager/ProductManager'
 import AddNewProduct from './MalikTraders/Components/Pages/ProductManager/AddNewProduct/AddNewProduct';
 import ModifyPayment from './MalikTraders/Components/Pages/AccountManagement/ModifyPayment/ModifyPayment';
+import Shop from './MalikTraders/Components/Pages/Shop/Shop';
 
 //window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
 window.$domain = 'https://localhost:44302/' //global variable
@@ -25,15 +26,16 @@ function App() {
     <>
       <Switch>
         <Route path="/" exact component={MTHome} />
-        <Route path='/Products' exact  component={ProductManager} />
-        <Route path='/AddProduct' exact  component={AddNewProduct} />
-        <Route path="/manageuser" exact component={UserManagement} />
+        <Route exact path='/shop' component={Shop}/>
+        <Route exact path='/Products'  component={ProductManager} />
+        <Route exact path='/AddProduct'  component={AddNewProduct} />
+        <Route path="/ManageUser" exact component={UserManagement} />
         <Route path="/ShowAccountDetails/:id" component={AccountDetails} />
         <Route path='/Accounts/:id/Payment' component={PaymentHistory} />
-        <Route path={'/CreateUser'} component={CreateNewUser}/>
+        <Route exact path={'/CreateUser'} component={CreateNewUser}/>
         <Route path='/User/:id/AddtoNewScheme' exact component={AttachWithNewScheme} />
-        <Route path='/login' component={Login} />
-        <Route path={'/account/payment/modification/:id'} component={ModifyPayment}/>
+        <Route exact path='/login' component={Login} />
+        <Route path={'/Account/Payment/Modification/:id'} component={ModifyPayment}/>
       </Switch>
     </>
   );
