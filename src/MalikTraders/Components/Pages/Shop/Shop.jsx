@@ -8,11 +8,20 @@ import { Link } from "react-router-dom";
 
 class Shop extends Component
 {
-    state= {
-        accHistory: [],
-        currentAmount: 0,
-        shopId: 0
+    constructor(props) {
+        super(props);
+        this.state =  {
+            accHistory: [],
+            currentAmount: 0,
+            shopId: 0,
+            searchQuery: {
+                startDate: null,
+                endDate: null
+            }
+        };
+        this.queryDataLoader = this.queryDataLoader.bind(this);
     }
+    
     componentDidMount(){
         if(this.state.accHistory.length === 0){
             axios.get(window.$domain + 'api/ShopAccountPaymentHistories/GetShopAccountPaymentHistorybuUserId/' + this.props.match.params.id)
@@ -30,12 +39,66 @@ class Shop extends Component
                 alert(resp.data.message);
             });
     }
+    
+    searchByDateTime = (event)=>{
+        if(event.target.name === 'Start-Date'){
+            this.setState({searchQuery: {
+                startDate: new Date(event.target.value).toLocaleDateString(),
+                endDate: this.state.searchQuery.endDate
+            }});
+        }
+        if(event.target.name === 'End-Date'){
+            this.setState({searchQuery: {
+                startDate: this.state.searchQuery.startDate,
+                endDate: new Date(event.target.value).toLocaleDateString()
+            }});
+        }
+    }
+
+    queryDataLoader(){
+        if(this.state.searchQuery.startDate !== null && this.state.searchQuery.endDate !== null)
+        {
+            axios.get(window.$domain + 'api/ShopAccountPaymentHistories/SearchShopAccountPaymentHistorybuUserId/' 
+        + this.props.match.params.id 
+        + '?StartDate=' + this.state.searchQuery.startDate 
+        + '&EndDate=' + this.state.searchQuery.endDate)
+            .then(
+                resp=>{
+                        this.setState({accHistory: resp.data});
+                }
+            ).catch(
+                err=> {
+                    console.log(err);
+                }
+            )
+        }
+        else alert('Check Start and End Date');
+}
+
     render(){
+        console.log(this)
         return(<>
                 <ShopAdminLayout>
                     <Jumbotron>
-                        <Link to={'/user/' +  this.props.match.params.id  +  '/shop/' + this.state.shopId + '/NewTransection'} className='btn btn-danger mb-2'>New T</Link>
-                        <HeaderBox currentAmount= {this.state.currentAmount}/>
+                    <HeaderBox currentAmount= {this.state.currentAmount}/>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                            <label for="StartMonth">Start Date:</label>
+                            <input className='shadow form-control shadow' type="date" id="StartMonth" name="Start-Date"
+                            defaultValue = '2021-10' onChange={this.searchByDateTime}></input>
+                            </div>
+                            <div className='col-md-6'>
+                                <label for="End-Month">End Date:</label>
+                                <input className='shadow form-control shadow' type="date" id="start" name="End-Date"
+                                    onChange={this.searchByDateTime}></input>
+                            </div>
+                        </div>
+                        <div className='row m-1'>
+                            <Link to={'/user/' +  this.props.match.params.id  +  '/shop/' + this.state.shopId + '/NewTransection'} className='shadow btn btn-danger m-1'>New Transaction</Link>
+                            <button onClick={()=>{window.print()}} className='shadow btn btn-success m-1'>Print</button>
+                            <button className='btn btn-light mt-1 shadow'  style={{marginLeft: 'auto', marginRight: '5px'}}
+                            onClick={this.queryDataLoader}>Search</button>
+                        </div>
                         <PaymentHistory accHistory={this.state.accHistory} />
                     </Jumbotron> 
                 </ShopAdminLayout>

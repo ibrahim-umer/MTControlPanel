@@ -5,7 +5,6 @@ import Cookie from 'universal-cookie';
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
-import ReactToPrint from 'react-to-print';
 
 class PaymentHistory extends Component{
    

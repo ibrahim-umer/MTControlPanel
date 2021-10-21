@@ -67,10 +67,9 @@ class Login extends Component {
         }
     }
     render(){
-        
         return (
             <div className="container mt-4" style={{width: "80%"}}>
-                {this.state.login? <Redirect to='/' />:''}
+                {this.state.login? this.props.history.goBack():''}
                 <div className="row">
                     <div className="col-lg-3 col-md-2"></div>
                     <div className="col-lg-6 col-md-8 login-box">

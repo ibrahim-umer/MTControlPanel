@@ -35,10 +35,46 @@ class CreateShop extends Component
                 "bankName": this.state.bankName,
                 "accountNo": this.state.accountNo ,
                 "isDefaulter": this.state.isDefaulter,
-                "currentPayment": this.state.currentPayment,
+                "currentPayment": 0,
                 "userId": this.state.userId
             })
         .then(response=>{
+            if(this.state.currentPayment > 0){
+                Axios.post(
+                    window.$domain + 'api/ShopAccountPaymentHistories',
+                    {
+                        "id": 0,
+                        "paymentTitle": 'Add Stating Amount',
+                        "amountRecived": this.state.currentPayment,
+                        "amountPaid": 0,
+                        "paymentDescription": 'This is shop Account Starting Transaction',
+                        "transectionDate": new Date(),
+                        "shopAccountId": response.data.id
+                    }).catch(
+                        err=>
+                        {
+                            alert(err.response.data);
+                        });
+            }
+            else if(this.state.currentPayment < 0){
+                Axios.post(
+                    window.$domain + 'api/ShopAccountPaymentHistories',
+                    {
+                        "id": 0,
+                        "paymentTitle": 'Add Stating Amount',
+                        "amountRecived": 0,
+                        "amountPaid": this.state.currentPayment,
+                        "paymentDescription": 'This is shop Account Starting Transaction',
+                        "transectionDate": new Date(),
+                        "shopAccountId": response.data.id
+                    }
+                    )
+            .catch(
+                err=>
+                {
+                    alert(err.response.data);
+                });
+            }
             this.setState({responce: response.data});
             this.setState({redirect: true});
         })    

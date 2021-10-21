@@ -1,7 +1,7 @@
-import AdminLayout from "../AdminLayout/AdminLayout"
+import AdminLayout from "../AdminLayout/AdminLayout";
 import Cookie from 'universal-cookie/es6';
 import { Redirect } from "react-router";
-import { useState } from 'react'
+import { useState } from 'react';
 const MTHome = () =>{
     var [isLogin,setLogin] = useState(false);
 
