@@ -10,9 +10,7 @@ class NavBar extends Component{
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ml-auto my-2 my-lg-0">
-                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/shop">Shop Home</Link></li>
-                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/Products">Add New Transection</Link></li>
-                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/Products"></Link></li>
+                            <li className="nav-item"><Link className="nav-link js-scroll-trigger" to="/manageuser">Admin Home</Link></li>
                         </ul>
                     </div>
                 </div>

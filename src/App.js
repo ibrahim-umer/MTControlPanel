@@ -16,6 +16,8 @@ import ProductManager from './MalikTraders/Components/Pages/ProductManager/Produ
 import AddNewProduct from './MalikTraders/Components/Pages/ProductManager/AddNewProduct/AddNewProduct';
 import ModifyPayment from './MalikTraders/Components/Pages/AccountManagement/ModifyPayment/ModifyPayment';
 import Shop from './MalikTraders/Components/Pages/Shop/Shop';
+import NewTransection from './MalikTraders/Components/Pages/Shop/NewTransection/NewTransection';
+import CreateShop from './MalikTraders/Components/Pages/Shop/CreateShop/CreateShop';
 
 //window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
 window.$domain = 'https://localhost:44302/' //global variable
@@ -26,15 +28,23 @@ function App() {
     <>
       <Switch>
         <Route path="/" exact component={MTHome} />
-        <Route exact path='/shop' component={Shop}/>
-        <Route exact path='/Products'  component={ProductManager} />
-        <Route exact path='/AddProduct'  component={AddNewProduct} />
+
+        <Route exact path='/login' component={Login} />
+
         <Route path="/ManageUser" exact component={UserManagement} />
         <Route path="/ShowAccountDetails/:id" component={AccountDetails} />
         <Route path='/Accounts/:id/Payment' component={PaymentHistory} />
         <Route exact path={'/CreateUser'} component={CreateNewUser}/>
+
+        <Route exact path='/User/:id/shop' component={Shop}/>
+        <Route exact path='/User/:id/Shop/:shopId/NewTransection' component={NewTransection} />
+        <Route exact path='/User/:id/Create-Shop-Account' component={CreateShop} />
+
+        <Route exact path='/Products'  component={ProductManager} />
+        <Route exact path='/AddProduct'  component={AddNewProduct} />
+        
+        
         <Route path='/User/:id/AddtoNewScheme' exact component={AttachWithNewScheme} />
-        <Route exact path='/login' component={Login} />
         <Route path={'/Account/Payment/Modification/:id'} component={ModifyPayment}/>
       </Switch>
     </>

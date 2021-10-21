@@ -23,35 +23,11 @@ class CreateNewUser extends Component{
               "gender": "",
               "registration_Date": ""
             },
-            "accounts": [
-              {
-                "id": 0,
-                "accNumber": "",
-                "bankName": "",
-                "amountPayable": 0,
-                "monthlyInstalment": 0,
-                "mtServiceId": 0,
-                "isAccClosed": false,
-              }
-            ],
             MTServices:[],
             redirect: false
         };
         this.amountInputRef = React.createRef();
         this.ReadyUser = this.ReadyUser.bind(this);
-    }
-    componentDidMount(){
-        if(this.state.MTServices.length === 0){
-            axios.get(window.$domain + 'api/MTServices').
-            then(MTService=>{
-                var forModificationState = this.state.MTServices;
-                forModificationState.push(MTService.data);
-                console.log(forModificationState)
-                this.setState({MTServices: forModificationState});
-            });
-            
-        }
-        console.log(this.state.MTServices)
     }
     ReadyUser=(event)=>{
         if(event.target.name === 'GetFullName'){
@@ -78,57 +54,6 @@ class CreateNewUser extends Component{
         else if(event.target.name === 'GetPhone'){
             this.setPhoneNumber(event.target)
         }
-        else if(event.target.name === 'GetAccountNumer'){
-            this.setAccountNumber(event.target)
-        }
-        else if(event.target.name === 'GetBankName'){
-            this.setBankName(event.target)
-        }
-        else if(event.target.name === 'GetMonthlyInstallment'){
-            this.setMonthlyInstallment(event.target)
-        }
-    }
-    setAccountNumber = (target)=>{
-        var newAccountState = [];
-        var accountData = {
-            "id": 0,
-            "accNumber": target.value,
-            "bankName": this.state.accounts[0].bankName,
-            "amountPayable": this.state.accounts[0].amountPayable,
-            "monthlyInstalment": this.state.accounts[0].monthlyInstalment,
-            "mtServiceId":this.state.accounts[0].mtServiceId,
-            "isAccClosed": false,
-        }
-        newAccountState.push(accountData);
-        this.setState({accounts: newAccountState})
-    }
-    setBankName = (target)=>{
-        var newAccountState = [];
-        var accountData = {
-            "id": 0,
-            "accNumber": this.state.accounts[0].accNumber ,
-            "bankName": target.value,
-            "amountPayable": this.state.accounts[0].amountPayable,
-            "monthlyInstalment": this.state.accounts[0].monthlyInstalment,
-            "mtServiceId":this.state.accounts[0].mtServiceId,
-            "isAccClosed": false,
-        }
-        newAccountState.push(accountData);
-        this.setState({accounts: newAccountState})
-    }
-    setMonthlyInstallment = (target)=>{
-        var newAccountState = [];
-        var accountData = {
-            "id": 0,
-            "accNumber": this.state.accounts[0].accNumber ,
-            "bankName": this.state.accounts[0].bankName ,
-            "amountPayable": this.state.accounts[0].amountPayable,
-            "monthlyInstalment": target.value,
-            "mtServiceId":this.state.accounts[0].mtServiceId,
-            "isAccClosed": false,
-        }
-        newAccountState.push(accountData);
-        this.setState({accounts: newAccountState})
     }
     setFullName =(target)=>{
         this.setState({userDetails: {
@@ -200,31 +125,12 @@ class CreateNewUser extends Component{
           }});
         console.log(this.state)
     }
+
     setUserType= (event)=>
     {
         this.setState({role: event.target.value});
     }
-    MTServiceSelection = (event)=>{
-        alert(event.target.value)
-        this.state.MTServices[0].map(
-            MTservice=>{
-                if(event.target.value === MTservice.name){
-                    this.setState({accounts: 
-                        [{
-                            "id": 0,
-                            "accNumber": this.state.accounts[0].accNumber,
-                            "bankName": this.state.accounts[0].bankName,
-                            "amountPayable": MTservice.amount,
-                            "monthlyInstalment": this.state.accounts[0].monthlyInstalment,
-                            "mtServiceId": MTservice.id,
-                            "isAccClosed": false,
-                        }]
-                    });
-                    this.amountInputRef.current.value = MTservice.amount;
-                }
-            }
-        )
-    }
+    
     CreatNewUser = ()=>{
         axios.post(
                 window.$domain + 'api/Users',
@@ -241,18 +147,7 @@ class CreateNewUser extends Component{
                         "phoneNumber": this.state.userDetails.phoneNumber,
                         "address": this.state.userDetails.address,
                         "gender": this.state.userDetails.gender,
-                    },
-                    "accounts": [
-                        {
-                            "id": 0,
-                            "accNumber": this.state.accounts[0].accNumber,
-                            "bankName": this.state.accounts[0].bankName,
-                            "amountPayable": this.state.accounts[0].amountPayable,
-                            "monthlyInstalment": this.state.accounts[0].monthlyInstalment,
-                            "mtServiceId": this.state.accounts[0].mtServiceId,
-                            "isAccClosed": false,
-                        }
-                    ] 
+                    }
                 }    
             )
         .then(response => this.setState({redirect: true}))
@@ -287,32 +182,9 @@ class CreateNewUser extends Component{
                     <TbInputControl DataInputHandler={this.ReadyUser} Name={'CNIC'} inutType={'text'} ctrlName={'GetCNIC'} />
                     <TbInputControl DataInputHandler={this.ReadyUser} Name={'Complete Address'} inutType={'text'} ctrlName={'GetAddress'} />
                     <TbInputControl DataInputHandler={this.ReadyUser} Name={'Gender'} inutType={'text'} ctrlName={'GetGender'} />
-                <div className='container-fluid'>
-                    <h5>Account Information</h5>
-                    <hr/> 
-                    <h6>Please Select Scheme/Product</h6>
-                    <hr/>
-                        <select class="form-select form-select-lg" onChange={this.MTServiceSelection} aria-label=".form-select-sm example">
-                        <option selected>Please Select Scheme</option>
-                            {
-                                this.state.MTServices.length > 0?
-                                this.state.MTServices[0].map(MTService=>{
-                                    return <option key={MTService.id}>{MTService.name}</option>
-                                }):
-                                <option selected>Wait We are trying to Load Your Providing Services</option>
-                            }
-                        </select>
+                    <button onClick={this.CreatNewUser} className='btn btn-secondary'>Create</button>
                 </div>
-                <hr/>
-                    <TbInputControl DataInputHandler={this.ReadyUser} Name={'Account Numer'} inutType={'text'} ctrlName={'GetAccountNumer'} />
-                    <TbInputControl DataInputHandler={this.ReadyUser} Name={'Bank Name'} inutType={'text'} ctrlName={'GetBankName'} />
-                    <div class="form-group ">
-                        <label for='GetAmountPayable'>Total Amount Payable:</label>
-                        <input ref={this.amountInputRef} type='text' class="form-control" onChange={this.ReadyUser} name='GetAmountPayable'/>
-                    </div>
-                    <TbInputControl DataInputHandler={this.ReadyUser} Name={'Monthly Installment'} inutType={'text'} ctrlName={'GetMonthlyInstallment'} />
-                    <button className="btn btn-success" onClick={this.CreatNewUser}>Create User</button>
-                </div>
+                
             </AdminLayout>
         )
     }

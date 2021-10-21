@@ -56,7 +56,7 @@ class Login extends Component {
         .catch(
             err=>{
                 if(err)
-                alert(err.response.data);
+                alert(err.message + ': Check Internet Connection or Contact Database Admin');
                 this.setState({displayAnimator: false});
             });
     }

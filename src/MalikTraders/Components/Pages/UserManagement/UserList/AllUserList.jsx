@@ -143,7 +143,10 @@ class UserList extends Component{
                                         {user.role==='admin'?'':<Link to={'/User/'+ user.id + '/AddtoNewScheme'} >Add</Link>}
                                     </td>
                                     <td>
-                                        {isAcc? <Link to={'/user/'+ user.id+'/shop'} >Go</Link>:'no'}
+                                        {user.role !== 'admin' ? isAcc  ? 
+                                        <Link to={'/user/'+ user.id+'/shop'} >Go</Link>:
+                                        <Link to={'/user/' + user.id + '/create-shop-account'}  >Create</Link>
+                                        :''}
                                     </td>
                                     <td>{user.gender}</td>
                                     <td>{user.userName}</td>
