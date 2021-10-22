@@ -17,7 +17,8 @@ class Shop extends Component
             searchQuery: {
                 startDate: null,
                 endDate: null
-            }
+            }, 
+            redirectToLogin: false
         };
         this.queryDataLoader = this.queryDataLoader.bind(this);
     }

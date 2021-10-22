@@ -4,7 +4,8 @@ import TbInput from '../../ProductManager/UI/TbInput';
 import TransectionTypeCheckBoxs from './TransectionTypeCheckBoxs';
 import Axios from 'axios';
 import ShopAdminLayout from "../../../AdminLayout/ShopAdminLayout";
-
+import { Redirect } from 'react-router'
+ 
 class NewTransection extends Component
 {
     state= {
@@ -15,7 +16,8 @@ class NewTransection extends Component
             "paymentDescription": "",
             "transectionDate": "2021-09-15T15:12:00",
             "shopAccountId": this.props.match.params.shopId,
-            't_Type': 'receive'
+            't_Type': 'receive',
+            redirectToBack: false
         }
     
     inputHandler=(event)=>{
@@ -42,16 +44,17 @@ class NewTransection extends Component
                     "transectionDate": this.state.transectionDate,
                     "shopAccountId": this.state.shopAccountId
                   }
-                )
-        .catch(
-            err=>
-            {
-                alert(err.response.data);
-            });
+                ).then(resp=>{
+                    this.setState({redirectToBack: true});
+                })
+                .catch(
+                    err=>
+                    {
+                        alert(err.response.data);
+                    });
         }
         else if(this.state.t_Type === 'receive'){
-            Axios.post(
-                window.$domain + 'api/ShopAccountPaymentHistories',
+            Axios.post(window.$domain + 'api/ShopAccountPaymentHistories',
                 {
                     "id": 0,
                     "paymentTitle": this.state.paymentTitle,
@@ -60,22 +63,25 @@ class NewTransection extends Component
                     "paymentDescription": this.state.paymentDescription,
                     "transectionDate": this.state.transectionDate,
                     "shopAccountId": this.props.match.params.shopId
-                  }
-                )
-        .catch(
-            err=>
-            {
-                alert(err.response.data);
-            });
-        }
+                  }).then(resp=>{
+                    this.setState({redirectToBack: true});
+                })
+                .catch(
+                    err=>
+                    {
+                        alert(err.response.data);
+                    });
+                }
     }
     setT_Type = (event)=>{
         var ctrlName = event.target.id;
         if(ctrlName === 'pay') this.setState({t_Type: 'pay'})
         else if(ctrlName === 'receive') this.setState({t_Type: 'receive'})
     }
+
     render(){
             return <ShopAdminLayout>
+                {this.state.redirectToBack? <Redirect to={'/user/'+ this.props.match.params.id +'/shop'} />:''}
                 <div className='jumbotron'>
                 <h3 style={{textAlign: 'center'}}>Create Transactions</h3>
                 <TransectionTypeCheckBoxs t_State={this.setT_Type} />
@@ -88,7 +94,6 @@ class NewTransection extends Component
                 </div>
                 <TbInput DataInputHandler={this.inputHandler} Name='Transection Date Time' type='datetime-local'   />
                 <Link className='btn btn-success' onClick={this.submitTransection}>Submit</Link>
-                
             </div>
             </ShopAdminLayout>
     }
