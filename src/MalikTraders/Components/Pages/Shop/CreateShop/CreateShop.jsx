@@ -87,19 +87,18 @@ class CreateShop extends Component
     
 
     render(){
-
             return <ShopAdminLayout>
                 <div className='jumbotron'>
                     {this.state.responce? 
                         this.state.redirect? 
-                            <Redirect to={'/user/'+ this.state.responce.id + '/shop'} /> 
+                            <Redirect to={'/user/'+ this.props.match.params.id + '/shop'} /> 
                             :'' :'' }
                 <h3 style={{textAlign: 'center'}}>Create Shop Account</h3>
                 <TbInput DataInputHandler={this.inputHandler} Name='Bank Name' type='text' />
                 <TbInput DataInputHandler={this.inputHandler} Name='Account No' type='text' />
                 <TbInput DataInputHandler={this.inputHandler} Name='Start Amount' type='Number' />
                 <Link className='btn btn-success' onClick={this.submitTransection}>Submit</Link>
-            </div>
+                </div>
             </ShopAdminLayout>
     }
 }

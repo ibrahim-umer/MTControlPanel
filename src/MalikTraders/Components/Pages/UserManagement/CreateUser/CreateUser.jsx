@@ -158,12 +158,12 @@ class CreateNewUser extends Component{
             }
             );
     }
-
+    
     render(){
         return(
             <AdminLayout>
             <div className="jumbotron">
-                {this.state.redirect?<Redirect to='/manageuser'/>:''}
+            {this.state.redirect?<Redirect to='/manageuser'/>:''}
                 <h3>Create New User</h3>
                 <hr/>
                 <h5>Please Select User Type</h5>
