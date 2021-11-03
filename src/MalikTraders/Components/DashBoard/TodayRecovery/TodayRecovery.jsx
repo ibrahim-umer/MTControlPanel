@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Component} from 'react'
+import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -66,7 +67,7 @@ class TodayRecovery extends Component {
                                   <td>{data.pay_Time}</td>
                                   <td><Link to={'/Accounts/'+ data.accId +'/Payment'}>show</Link></td>
                               </tr>}
-                ): ''
+                ): <p>No Recovery Found</p> 
               }
             </tbody>
           </table>

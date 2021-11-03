@@ -4,7 +4,8 @@ import TbInput from '../../ProductManager/UI/TbInput';
 import TransectionTypeCheckBoxs from './TransectionTypeCheckBoxs';
 import Axios from 'axios';
 import ShopAdminLayout from "../../../AdminLayout/ShopAdminLayout";
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
+import { goBack } from '../../../../Assets/StaticFunc/UI';
  
 class NewTransection extends Component
 {
@@ -83,6 +84,7 @@ class NewTransection extends Component
             return <ShopAdminLayout>
                 {this.state.redirectToBack? <Redirect to={'/user/'+ this.props.match.params.id +'/shop'} />:''}
                 <div className='jumbotron'>
+                    {goBack(this.props.history)}
                 <h3 style={{textAlign: 'center'}}>Create Transactions</h3>
                 <TransectionTypeCheckBoxs t_State={this.setT_Type} />
                 <TbInput DataInputHandler={this.inputHandler} Name='Transection Title' type='text' />

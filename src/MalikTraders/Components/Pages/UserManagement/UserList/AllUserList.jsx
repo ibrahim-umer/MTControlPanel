@@ -155,7 +155,7 @@ class UserList extends Component{
                                     <td>{new Date(user.lastLogin).toDateString() + ' ' 
                                      + new Date(user.lastLogin).toLocaleTimeString() }</td>
                                     <td>{new Date(user.registration_Date).toDateString()}</td>
-                                    <td onClick={()=> this.UserEnableandDisableHandler(user.id)}>
+                                    <td onClick={()=> {if(user.role!=='admin')this.UserEnableandDisableHandler(user.id)}}>
                                         {user.isUserDisabled? 
                                         <i  class={"fa fa-lock " + Styles.zoom} aria-hidden="true"></i> :
                                         <i  class={"fa fa-check " + Styles.zoom} aria-hidden="true"></i>}

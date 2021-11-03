@@ -38,7 +38,8 @@ class Shop extends Component
     componentDidUpdate(){
         if(this.state.propsDataMount === false){
             axios.get(window.$domain + 'api/ShopAccounts/GetShopAccountByUserId/' + this.props.match.params.id)
-                .then(resp=>{
+                .then(resp=>
+                    {
                     this.setState({currentAmount: resp.data.currentPayment});
                     this.setState({shopId: resp.data.id});
                     this.setState({propsDataMount: true});

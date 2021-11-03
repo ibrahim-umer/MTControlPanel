@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Component} from 'react'
+import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -49,7 +50,7 @@ class MonthlyRemainRecovery extends Component {
                                         <td>{data.scheme}</td>
                                         <td><Link to={'/Accounts/'+ data.accId +'/Payment'}>show</Link></td>
                                     </tr>
-                        ): ''
+                        ): <p>No Remain Recovery Found</p> 
                       }
                     </tbody>
                   </table>
