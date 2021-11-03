@@ -5,7 +5,7 @@ import TbInputControl from '../UI/TbInputControl'
 import axios from "axios";
 import { Redirect } from "react-router";
 import Cookie from 'universal-cookie';
-
+import {goBack} from '../../../../Assets/StaticFunc/UI';
 class AttachWithNewScheme extends Component{
     constructor(props) {
         super(props);
@@ -145,6 +145,7 @@ class AttachWithNewScheme extends Component{
                 {this.state.isLogin?'':<Redirect to='/login'/>}
                 {this.state.redirect? <Redirect to='/manageuser'/>: ''}
                 <div className='jumbotron'>
+                {goBack(this.props.history)}
                     <div className='container-fluid'>
                         <h5>Add User to New Scheme</h5>
                         <hr/> 

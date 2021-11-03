@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
 import TbInputControl from "../UI/TbInputControl";
-
+import {goBack} from '../../../../Assets/StaticFunc/UI';
 
 class CreateNewUser extends Component{
     constructor(props) {
@@ -65,7 +65,6 @@ class CreateNewUser extends Component{
             "gender": this.state.userDetails.gender,
             "registration_Date": this.state.userDetails.registration_Date
           }});
-        console.log(this.state)
     }
     setGender =(target)=>{
         this.setState({userDetails: {
@@ -83,11 +82,9 @@ class CreateNewUser extends Component{
     }
     setEmail = (target)=>{
         this.setState({email: target.value});
-        console.log(this.state)
     }
     setPassword = (target)=>{
         this.setState({password: target.value});
-        console.log(this.state)
     }
     setCNIC =(target)=>{
         this.setState({userDetails: {
@@ -99,7 +96,6 @@ class CreateNewUser extends Component{
             "gender": this.state.userDetails.gender,
             "registration_Date": this.state.userDetails.registration_Date
           }});
-        console.log(this.state)
     }
     setAddress =(target)=>{
         this.setState({userDetails: {
@@ -111,7 +107,6 @@ class CreateNewUser extends Component{
             "gender": this.state.userDetails.gender,
             "registration_Date": this.state.userDetails.registration_Date
           }});
-        console.log(this.state)
     }
     setPhoneNumber =(target)=>{
         this.setState({userDetails: {
@@ -123,7 +118,6 @@ class CreateNewUser extends Component{
             "gender": this.state.userDetails.gender,
             "registration_Date": this.state.userDetails.registration_Date
           }});
-        console.log(this.state)
     }
 
     setUserType= (event)=>
@@ -163,7 +157,8 @@ class CreateNewUser extends Component{
         return(
             <AdminLayout>
             <div className="jumbotron">
-            {this.state.redirect?<Redirect to='/manageuser'/>:''}
+                {goBack(this.props.history)}
+                {this.state.redirect?<Redirect to='/manageuser'/>:''}
                 <h3>Create New User</h3>
                 <hr/>
                 <h5>Please Select User Type</h5>

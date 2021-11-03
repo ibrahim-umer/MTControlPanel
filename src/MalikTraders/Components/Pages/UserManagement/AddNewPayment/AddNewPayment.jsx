@@ -3,7 +3,8 @@ import { Component } from "react";
 import { Redirect } from "react-router";
 import AdminLayout from "../../../AdminLayout/AdminLayout";
 import TbInputControl from "../UI/TbInputControl";
-import Cookie from 'universal-cookie'
+import Cookie from 'universal-cookie';
+
 class AddNewPayment extends Component{
     state = {
         amount: 0,
@@ -26,7 +27,6 @@ class AddNewPayment extends Component{
             }
         ).then(
             resp=>{
-                console.log(resp)
                 this.setState({redirect: true});
             }
         )

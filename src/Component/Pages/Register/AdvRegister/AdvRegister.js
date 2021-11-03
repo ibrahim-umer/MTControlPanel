@@ -49,7 +49,6 @@ class AdvRegister extends Component{
         }});
     }
        render(){
-           console.log(this.state.newUser);
         return(
             <div class="container">
             <div class="card o-hidden border-0 shadow-lg my-5">

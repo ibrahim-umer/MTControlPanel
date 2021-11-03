@@ -38,7 +38,7 @@ class TodayRecovery extends Component {
                         <div class="h5 mb-0 font-weight-bold text-gray-800">PKR{' '+this.state.recoverySum}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <i class="fa fa-credit-card fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>

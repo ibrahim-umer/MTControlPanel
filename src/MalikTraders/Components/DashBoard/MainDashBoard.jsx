@@ -6,22 +6,22 @@ import MonthlyReport from "./MonthlyReport/MonthlyReport";
 
 class MainDashBoard extends Component{
     state = {
-        menuSwitcher: 1,
+        menuIndex: 1,
     }
     menuSwitchHandler = menu =>{
-        this.setState({menuSwitcher: menu});
+        this.setState({menuIndex: menu});
     }
     render(){
         return(
             <>
                 <div className='col-md-3'>
-                    <DashBoardNavigator currentMenu={this.state.menuSwitcher} menuSwitchingHandler={this.menuSwitchHandler}/>
+                    <DashBoardNavigator currentMenu={this.state.menuIndex} menuSwitchingHandler={this.menuSwitchHandler}/>
                 </div>
                 <div className='col-md-9'> 
                     {
-                        this.state.menuSwitcher === 1? <TodayRecovery/>
-                        :this.state.menuSwitcher === 2? <MonthlyRemainRecovery/>
-                        :this.state.menuSwitcher === 3? <MonthlyReport/>
+                        this.state.menuIndex === 1? <TodayRecovery/>
+                        :this.state.menuIndex === 2? <MonthlyRemainRecovery/>
+                        :this.state.menuIndex === 3? <MonthlyReport/>
                         : ''
                     }                    
                 </div>

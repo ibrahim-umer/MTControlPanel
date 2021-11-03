@@ -2,7 +2,9 @@ import { Component } from "react";
 import Axios from "axios"
 import {Link} from 'react-router-dom'
 
+import Styles from './AllUserListStyles.module.css';
 import { Spinner } from 'react-bootstrap';
+
 class UserList extends Component{
     constructor(props) {
         super(props);
@@ -13,7 +15,7 @@ class UserList extends Component{
     this.LoadUserList = this.LoadUserList.bind(this);
     }
 
-     LoadUserList=(event)=>{
+    LoadUserList=(event)=>{
         if(event === undefined)
         Axios.get(window.$domain + 'api/Users').then(
             resp=>{
@@ -33,7 +35,7 @@ class UserList extends Component{
             }
         ).catch(
             err=>{
-                alert('Page:manageuser =>'+err)
+                alert('Page:manageuser =>'+ err)
             }
         )
         else if(event.target.name === 'SearchByCnic' && event.target.value !== '' ){
@@ -60,7 +62,6 @@ class UserList extends Component{
                 }
             )
         }
-        console.log(this.state.shopAcc);
     }
     UserEnableandDisableHandler = (userId)=>
     {
@@ -68,11 +69,8 @@ class UserList extends Component{
         {
             Axios.post(window.$domain + 'api/Users/UserAccountEnableandDisableHandler/' + userId)
                 .then(resp=> {
-                    console.log(resp);
                     this.LoadUserList();
                 })
-                .catch(resp=> console.log(resp));
-            
         }
     }
 
@@ -95,17 +93,18 @@ class UserList extends Component{
     render(){
         return(
             <div className="jumbotron container-fluid overflow-auto">
-               <div className='row ml-2'>
-                    <div class="form-group ml-1">
-                        <label>Search by CNIC Number:</label>
+                <h3>Search User <i  className="fa fa-search " aria-hidden="true"></i></h3>
+               <div className='row ml-1 border border-dark shadow' >
+                    <div className="form-group ml-1">
+                        <label><sub>by</sub>CNIC Number:</label>
                         <input  type='text' class="form-control shadow" onChange={this.LoadUserList} name='SearchByCnic'/>
                     </div>
-                    <div class="form-group ml-1">
-                        <label>Search by Name:</label>
-                        <input  type='text' class="form-control shadow" onChange={this.LoadUserList} name='SearchByName'/>
+                    <div className="form-group ml-1">
+                        <label ><sub>by</sub>Name:</label>
+                        <input  type='text' className="form-control shadow" onChange={this.LoadUserList} name='SearchByName'/>
                     </div>
                </div>
-                <h3>Users</h3>
+               <h3>Users <i  className={"fa fa-users " + Styles.zoom} aria-hidden="true"></i></h3>
                 <div className='row shadow overflow-auto m-1'>
                 <table className="table  table-bordered ">
                     <thead>
@@ -158,8 +157,8 @@ class UserList extends Component{
                                     <td>{new Date(user.registration_Date).toDateString()}</td>
                                     <td onClick={()=> this.UserEnableandDisableHandler(user.id)}>
                                         {user.isUserDisabled? 
-                                        <i  class="fa fa-lock" aria-hidden="true"></i> :
-                                        <i class="fa fa-check" aria-hidden="true"></i>}
+                                        <i  class={"fa fa-lock " + Styles.zoom} aria-hidden="true"></i> :
+                                        <i  class={"fa fa-check " + Styles.zoom} aria-hidden="true"></i>}
                                     </td>
                                 </tr>
                             }): <Spinner animation="grow"  /> 

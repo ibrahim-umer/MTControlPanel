@@ -4,7 +4,7 @@ import TbInput from '../../ProductManager/UI/TbInput';
 import Axios from 'axios';
 import ShopAdminLayout from "../../../AdminLayout/ShopAdminLayout";
 import {Redirect} from 'react-router'
-
+import {goBack} from '../../../../Assets/StaticFunc/UI';
 class CreateShop extends Component
 {
     state= {
@@ -77,7 +77,7 @@ class CreateShop extends Component
             }
             this.setState({responce: response.data});
             this.setState({redirect: true});
-        })    
+        })   
         .catch(
             err=>
             {
@@ -89,6 +89,7 @@ class CreateShop extends Component
     render(){
             return <ShopAdminLayout>
                 <div className='jumbotron'>
+                {goBack(this.props.history)}
                     {this.state.responce? 
                         this.state.redirect? 
                             <Redirect to={'/user/'+ this.props.match.params.id + '/shop'} /> 

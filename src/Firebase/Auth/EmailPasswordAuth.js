@@ -26,7 +26,6 @@ export const  SignupByEmaiPass= (email, password) => {
           });
           });
           getPromise.then(ResultUser=>{
-            console.log(ResultUser);
           })
       }
       catch(error){

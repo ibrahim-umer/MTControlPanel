@@ -37,7 +37,6 @@ class AdvLogin extends Component {
                 loggedinStatus: true
             },
         });
-        console.log(this.state)
     }
 
     inputPasswordHandler=(e)=>{

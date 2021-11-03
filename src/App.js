@@ -19,8 +19,8 @@ import Shop from './MalikTraders/Components/Pages/Shop/Shop';
 import NewTransection from './MalikTraders/Components/Pages/Shop/NewTransection/NewTransection';
 import CreateShop from './MalikTraders/Components/Pages/Shop/CreateShop/CreateShop';
 
-window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
-//window.$domain = 'https://localhost:44302/' //global variable
+//window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
+window.$domain = 'https://localhost:44302/' //global variable
 
 //Start 
 function App() {

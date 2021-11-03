@@ -23,7 +23,6 @@ const userReducer=(state = initState,action)=>{
     cookies.set('user', state.loggedinUser , { path: '/' });
     switch(action.type){
         case ActionTypes.SIGNIN_USER:
-            console.log(action)
             cookies.set('user', action.payload , { path: '/' });
             return{
                 ...state,

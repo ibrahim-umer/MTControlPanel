@@ -7,7 +7,7 @@ import AccountCard from "./UI/AccountCard";
 import Axios from "axios"
 import Cookie from 'universal-cookie/es6';
 import { Spinner } from 'react-bootstrap';
-
+import {goBack} from '../../../Assets/StaticFunc/UI';
 class AccountDetails extends Component {
     constructor(props) {
         super(props);
@@ -35,9 +35,8 @@ class AccountDetails extends Component {
         {
             Axios.put(window.$domain + 'api/Accounts/DisableAndEnableHandler/' + AccId + '?ClosingDescription=' + ClosingDescription)
                 .then(resp=> {
-                    console.log(resp);
-                })
-                .catch(resp=> console.log(resp));
+                    
+                });
             this.setState({Accounts: null});
         }
     }
@@ -49,9 +48,7 @@ class AccountDetails extends Component {
         {
             Axios.put(window.$domain + 'api/Accounts/DisableAndEnableHandler/' + AccId + '?ClosingDescription=' + ClosingDescription)
                 .then(resp=> {
-                    console.log(resp);
                 })
-                .catch(resp=> console.log(resp));
                 this.setState({Accounts: null});
         }
     }
@@ -106,15 +103,15 @@ class AccountDetails extends Component {
         )
     }
     render(){
-        console.log(this.props.match.params.id)
         return(
             <AdminLayout>
                 {this.state.isLogin?'':<Redirect to='/login'/>}
                 {this.state.gotoHistoryPaymentRedirect=== null? '':<Redirect to={'/Accounts/' + this.state.gotoHistoryPaymentRedirect.AccId + '/Payment'} /> }
                 <div className='jumbotron mt-3'>
+                {goBack(this.props.history)}
                     <div className='row'>
                         <div className='col-md-3'>
-                            <h5 style={{textAlign: 'center'}}>Participated Schemes</h5>
+                            <h5 style={{textAlign: 'center'}}>Participated Schemes<i  className="fa fa-magic " aria-hidden="true"></i></h5>
                             {
                                 this.state.Schemes !== null && this.state.Accounts !== null ?this.state.Accounts.map(
                                     Account => this.state.Schemes.map(
@@ -129,7 +126,7 @@ class AccountDetails extends Component {
                                                                                         closingReason={Account.closingDescription}
                                                                                         enableAcc={this.AccountEnableHandler}/>: ''
                                     ) 
-                                ):  <div className='m-5'><Spinner animation="grow" /></div>
+                                ):<div className='m-5'><Spinner animation="grow" /></div>
                             }
                         </div>
                         <div className='col-md-9'>

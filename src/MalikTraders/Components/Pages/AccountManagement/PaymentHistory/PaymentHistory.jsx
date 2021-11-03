@@ -5,6 +5,7 @@ import Cookie from 'universal-cookie';
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import {goBack} from '../../../../Assets/StaticFunc/UI';
 
 class PaymentHistory extends Component{
    
@@ -49,7 +50,7 @@ class PaymentHistory extends Component{
                 }
             ).catch(
                 err=> {
-                    console.log(err);
+
                 }
             )
         }
@@ -109,7 +110,6 @@ class PaymentHistory extends Component{
                     }
                 ).catch(
                     err=> {
-                        console.log(err);
                     }
                 )
             }
@@ -120,6 +120,7 @@ class PaymentHistory extends Component{
                 {this.state.isLogin?'':<Redirect to='/login'/>}
                 {!this.state.goneToPrint?
                 <div className="jumbotron container-fluid overflow-auto" >
+                    {goBack(this.props.history)}
                     <h2>Payment History</h2>
                     <label for="StartMonth">Start Month:</label>
                     <input className='shadow form-control  ml-1' type="date" id="StartMonth" name="Start-Date"
@@ -142,7 +143,7 @@ class PaymentHistory extends Component{
                     }
                     <button onClick={()=>this.setState({goneToPrint: true})} className='btn btn-primary'>Print</button>
             </div>
-            :<DisplayHistory backToAppMode={this.printModeHandler}  isPrintable= {true}  paymentHistoryList= {this.state.historyList} AccID={this.props.match.params.id} />}
+            :<DisplayHistory backToAppMode={this.printModeHandler}  isPrintable= {true} goBackFunc={this.props.history} paymentHistoryList= {this.state.historyList} AccID={this.props.match.params.id} />}
             </AdminLayout>
         )
     }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './CardStyling.module.css'; 
-  console.log(styles)
+
 const AccountCard= props =>{
     var [showToast,setShowtoast] = useState(false);
     var toastAccountClose=toast(props.closingReason, {

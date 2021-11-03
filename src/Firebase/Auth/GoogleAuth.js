@@ -22,18 +22,14 @@ const  SigninByGoogle = () => {
           .then(function(result) {
             alert("Welcome " + result.user.displayName)
             appPrimary.delete().then(function() {
-              console.log("App deleted successfully");
             })
             .catch(function(error) {
-              console.log("Error deleting app:", error);
             });;
           }).catch(function(error) {
             alert(error.message)
             appPrimary.delete().then(function() {
-              console.log("App deleted successfully");
             })
             .catch(function(error) {
-              console.log("Error deleting app:", error);
             });;
           });
       }

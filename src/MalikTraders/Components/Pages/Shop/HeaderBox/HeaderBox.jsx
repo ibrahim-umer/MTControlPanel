@@ -7,7 +7,7 @@ const HeaderBox= props=><div class="card  shadow h-30 py-1">
                         <div class="h5 mb-0 font-weight-bold text-gray-800">PKR {props.currentAmount}/-</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <i class="fas fa-credit-card fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
