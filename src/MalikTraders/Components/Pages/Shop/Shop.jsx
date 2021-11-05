@@ -102,10 +102,10 @@ class Shop extends Component
                             </div>
                         </div>
                         <div className='row m-1'>
-                            <Link to={'/user/' +  this.props.match.params.id  +  '/shop/' + this.state.shopId + '/NewTransection'} className='shadow btn btn-danger m-1'>New Transaction <i  className="fa fa-file-invoice" aria-hidden="true"></i></Link>
-                            <button onClick={()=>{window.print()}} className='shadow btn btn-success m-1'>Print<i  className="fa fa-print" aria-hidden="true"></i></button>
+                            <Link to={'/user/' +  this.props.match.params.id  +  '/shop/' + this.state.shopId + '/NewTransection'} className='shadow btn btn-danger m-1'>New Transaction&#160;<i  className="fa fa-file-invoice" aria-hidden="true"></i></Link>
+                            <button onClick={()=>{window.print()}} className='shadow btn btn-success m-1'>Print&#160;<i  className="fa fa-print" aria-hidden="true"></i></button>
                             <button className='btn btn-light mt-1 shadow'  style={{marginLeft: 'auto', marginRight: '5px'}}
-                            onClick={this.queryDataLoader}>Search<i  className="fa fa-search " aria-hidden="true"></i></button>
+                            onClick={this.queryDataLoader}>Search&#160; <i  className="fa fa-search " aria-hidden="true"></i></button>
                         </div>
                         <PaymentHistory accHistory={this.state.accHistory} />
                     </Jumbotron> 

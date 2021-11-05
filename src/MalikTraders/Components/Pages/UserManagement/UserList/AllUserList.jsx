@@ -150,7 +150,7 @@ class UserList extends Component{
                                 return <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.role}</td>
-                                    <td><Link to={'/user/'+ user.id}>{user.name}</Link></td>
+                                    <td>{user.role==='admin'?user.name:<Link to={'/user/'+ user.id}>{user.name}</Link>}</td>
                                     <td>
                                         {user.role==='admin'?'':<Link to={'/ShowSchemeAccountDetails/'+ user.id} >Show</Link>}
                                     </td>
