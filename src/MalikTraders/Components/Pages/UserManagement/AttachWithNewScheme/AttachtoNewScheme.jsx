@@ -64,7 +64,6 @@ class AttachWithNewScheme extends Component{
             }
         })
     }
-
     PostData=()=>{
         axios.get(window.$domain + 'api/Accounts/GetAccountbyUserId/' + this.state.AccProtoType.userid)
         .then(

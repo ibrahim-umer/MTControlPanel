@@ -1,30 +1,21 @@
 
 
 
+
 import Chart from "react-google-charts";
 
-const MonthlyReportChart = props =>{
+const MonthlyReportChart = ({title,graphData}) =>{
     return(
         <Chart
             width={'650px'}
             height={'450px'}
             chartType="ComboChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-                [
-                'Month',
-                'unPaid',
-                'Paid',
-                ],
-                ['Sep', 60, 150],
-                ['Oct', 60, 120],
-                ['Nov', 50, 117],
-                ['Dec', 25, 110],
-            ]}
+            loader={<div className='jumbotron'>Loading Chart</div>}
+            data={graphData}
             options={{
-                title: props.title,
-                vAxis: { title: 'Paid / unPaid' },
-                hAxis: { title: 'By Month' },
+                title: title,
+                vAxis: { title: 'Paid Customer' },
+                hAxis: { title: 'Monthly' },
                 seriesType: 'bars',
                 series: { 6: { type: 'line' } },
             }}

@@ -9,7 +9,7 @@ import MTHome from './MalikTraders/MalikTraderApp';
 import Login from './MalikTraders/Components/Pages/Login/Login'
 import UserManagement from './MalikTraders/Components/Pages/UserManagement/UserManagement';
 import AccountDetails from './MalikTraders/Components/Pages/AccountManagement/ShowAccountDetails';
-import PaymentHistory from './MalikTraders/Components/Pages/AccountManagement/PaymentHistory/PaymentHistory';
+import PaymentHistory, { DisplayHistory } from './MalikTraders/Components/Pages/AccountManagement/PaymentHistory/PaymentHistory';
 import CreateNewUser from './MalikTraders/Components/Pages/UserManagement/CreateUser/CreateUser';
 import AttachWithNewScheme from './MalikTraders/Components/Pages/UserManagement/AttachWithNewScheme/AttachtoNewScheme';
 import ProductManager from './MalikTraders/Components/Pages/ProductManager/ProductManager'
@@ -18,6 +18,7 @@ import ModifyPayment from './MalikTraders/Components/Pages/AccountManagement/Mod
 import Shop from './MalikTraders/Components/Pages/Shop/Shop';
 import NewTransection from './MalikTraders/Components/Pages/Shop/NewTransection/NewTransection';
 import CreateShop from './MalikTraders/Components/Pages/Shop/CreateShop/CreateShop';
+import DisplayUser from './MalikTraders/Components/Pages/UserManagement/DisplayUser/DisplayUser';
 
 //window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
 window.$domain = 'https://localhost:44302/' //global variable
@@ -32,13 +33,14 @@ function App() {
         <Route exact path='/login' component={Login} />
 
         <Route path="/ManageUser" exact component={UserManagement} />
-        <Route path="/ShowAccountDetails/:id" component={AccountDetails} />
+        <Route path="/ShowSchemeAccountDetails/:id" component={AccountDetails} />
         <Route path='/Accounts/:id/Payment' component={PaymentHistory} />
         <Route exact path={'/CreateUser'} component={CreateNewUser}/>
 
         <Route exact path='/User/:id/shop' component={Shop}/>
         <Route exact path='/User/:id/Shop/:shopId/NewTransection' component={NewTransection} />
         <Route exact path='/User/:id/Create-Shop-Account' component={CreateShop} />
+        <Route exact path='/User/:id' component={DisplayUser} />
 
         <Route exact path='/Products'  component={ProductManager} />
         <Route exact path='/AddProduct'  component={AddNewProduct} />

@@ -62,7 +62,9 @@ class ProductManager extends Component{
                             </tbody>
                         </table>
                     </div>
-                    <Link className='btn btn-success shadow' to='/AddProduct' >Add More Product</Link>
+                    <Link className='btn btn-success shadow' to='/AddProduct' >
+                        Add More Product
+                    </Link>
                 </div>
             </AdminLayout>
 

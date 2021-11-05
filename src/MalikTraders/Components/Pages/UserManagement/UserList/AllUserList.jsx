@@ -62,6 +62,18 @@ class UserList extends Component{
                 }
             )
         }
+        else if(event.target.name === 'SearchByScheme' && event.target.value !== ''){
+            Axios.get(window.$domain + 'api/Users/SearchUserbyUserSchemeID/' + event.target.value).
+            then(
+                resp=>{
+                    this.setState({userList: resp.data});
+                }
+            ).catch(
+                err=>{
+                    alert('Page: Manage User =>'+err)
+                }
+            )
+        }
     }
     UserEnableandDisableHandler = (userId)=>
     {
@@ -103,6 +115,10 @@ class UserList extends Component{
                         <label ><sub>by</sub>Name:</label>
                         <input  type='text' className="form-control shadow" onChange={this.LoadUserList} name='SearchByName'/>
                     </div>
+                    <div className="form-group ml-1">
+                        <label ><sub>by</sub>Scheme ID:</label>
+                        <input  type='number' className="form-control shadow" onChange={this.LoadUserList} name='SearchByScheme'/>
+                    </div>
                </div>
                <h3>Users <i  className={"fa fa-users " + Styles.zoom} aria-hidden="true"></i></h3>
                 <div className='row shadow overflow-auto m-1'>
@@ -134,9 +150,9 @@ class UserList extends Component{
                                 return <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.role}</td>
-                                    <td>{user.name}</td>
+                                    <td><Link to={'/user/'+ user.id}>{user.name}</Link></td>
                                     <td>
-                                        {user.role==='admin'?'':<Link to={'/ShowAccountDetails/'+ user.id} >Show</Link>}
+                                        {user.role==='admin'?'':<Link to={'/ShowSchemeAccountDetails/'+ user.id} >Show</Link>}
                                     </td>
                                     <td>
                                         {user.role==='admin'?'':<Link to={'/User/'+ user.id + '/AddtoNewScheme'} >Add</Link>}

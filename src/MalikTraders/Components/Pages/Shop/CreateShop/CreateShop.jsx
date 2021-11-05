@@ -44,7 +44,7 @@ class CreateShop extends Component
                     window.$domain + 'api/ShopAccountPaymentHistories',
                     {
                         "id": 0,
-                        "paymentTitle": 'Add Stating Amount',
+                        "paymentTitle": 'Add Starting Amount',
                         "amountRecived": this.state.currentPayment,
                         "amountPaid": 0,
                         "paymentDescription": 'This is shop Account Starting Transaction',
@@ -61,7 +61,7 @@ class CreateShop extends Component
                     window.$domain + 'api/ShopAccountPaymentHistories',
                     {
                         "id": 0,
-                        "paymentTitle": 'Add Stating Amount',
+                        "paymentTitle": 'Add Starting Amount',
                         "amountRecived": 0,
                         "amountPaid": this.state.currentPayment,
                         "paymentDescription": 'This is shop Account Starting Transaction',
