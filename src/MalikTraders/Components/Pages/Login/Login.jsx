@@ -22,7 +22,7 @@ class Login extends Component {
         this.setState({displayAnimator: true})
         Axios.post(window.$domain + 'api/Users/LoginUser?UserName='+ this.state.user + '&Password='+ this.state.password )
         .then(resp=>{
-            if(resp.data.role !== 'admin' ) 
+            if(resp.data.role !== 'Admin' ) 
             {
                 alert('Your are not authorize for operating Admin Control');
                 return ;

@@ -20,7 +20,7 @@ import NewTransection from './MalikTraders/Components/Pages/Shop/NewTransection/
 import CreateShop from './MalikTraders/Components/Pages/Shop/CreateShop/CreateShop';
 import DisplayUser from './MalikTraders/Components/Pages/UserManagement/DisplayUser/DisplayUser';
 
-window.$domain = 'https://maliktraders20211011002845.azurewebsites.net/' //global variable
+window.$domain = 'https://bsite.net/muiproma/' //global variable
 //window.$domain = 'https://localhost:44302/' //global variable
 
 //Start 
